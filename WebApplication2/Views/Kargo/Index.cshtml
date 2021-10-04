@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "listele";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <br />
+            <h3 style="text-align:center;">Kargo</h3>
+
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>sipNo</th>
+                        <th>kargoSatisKod</th>
+                        <th>odemeTarih</th>
+                        <th>kargolamaTarih</th>
+                        <th>onaylamaTarih</th>
+                        <th>kobi</th>
+                        <th>uye</th>
+                        <th>urun</th>
+                        <th>tutar</th>
+                        <th>tip</th>
+                        <th>kargo</th>
+                        <th>sonDurum</th>
+                        <th>kobiDurum</th>
+                        <th>SiparisAy</th>
+                        <th>SiparisYil</th>
+                        <th>TeslimSuresi</th>
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+@section csss{
+    <link href="~/theme/datatables.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+
+
+    <script src="~/theme/datatables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').DataTable({
+
+                "ajax": {
+                    "url": "/SiparisRaporgenel/List",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "lengthChange": false,
+                "columns": [
+                    { "data": "sipNo", "name": "sipNo", "autoWidth": true },
+                    { "data": "kargoSatisKod", "name": "kargoSatisKod", "autoWidth": true },
+                    { "data": "odemeTarih", "name": "odemeTarih", "autoWidth": true },
+                    { "data": "kargolamaTarih", "name": "kargolamaTarih", "autoWidth": true },
+                    { "data": "onaylamaTarih", "name": "onaylamaTarih", "autoWidth": true },
+                    { "data": "kobi", "name": "kobi", "autoWidth": true },
+                    { "data": "uye", "name": "uye", "autoWidth": true },
+                    { "data": "urun", "name": "urun", "autoWidth": true },
+                    { "data": "tutar", "name": "tutar", "autoWidth": true },
+                    { "data": "tip", "name": "tip", "autoWidth": true },
+                    { "data": "kargo", "name": "kargo", "autoWidth": true },
+                    { "data": "sonDurum", "name": "sonDurum", "autoWidth": true },
+                    { "data": "kobiDurum", "name": "kobiDurum", "autoWidth": true },
+                    { "data": "SiparisAy", "name": "SiparisAy", "autoWidth": true },
+                    { "data": "SiparisYil", "name": "SiparisYil", "autoWidth": true },
+                    { "data": "TeslimSuresi", "name": "TeslimSuresi", "autoWidth": true },
+
+
+                ],
+                "processing": true,
+                "serverSide": true,
+                "order": [0, "desc"],
+                scrollX: true
+            });
+        });
+    </script>
+    }

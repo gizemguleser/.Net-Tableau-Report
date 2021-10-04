@@ -1,0 +1,133 @@
+﻿@model WebApplication2.Controllers.KargoFirmController.Sonuc2
+<style>
+    .KargoFirmInfo {
+        text-align: right;
+    }
+
+    .KargoFirmToplam {
+        text-align: right;
+    }
+</style>
+@{
+    ViewBag.Title = "listele";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <br />
+            <h3 style="text-align:center;">Kargo Firması Genel Rapor</h3>
+
+            <table  class="table table-striped table-bordered example">
+                <thead>
+                    <tr>
+                        <th>Kargo</th>
+                        <th>Adet</th>
+                        <th>Ciro</th>
+                        <th>Adet Başı Ciro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.KargoList)
+                    {
+                        <tr>
+                            <td>@item.Kargo</td>
+                            <td class="KargoFirmInfo">@(string.Format("{0:#,##0}", item.Adet))</td>
+                            <td class="KargoFirmInfo">@(string.Format("{0:#,##0}", item.Ciro))</td>
+                            <td class="KargoFirmInfo">@(string.Format("{0:#,##0}", item.AdetbasiCiro)) </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>Genel Toplam</th>
+                        <th class="KargoFirmToplam">@(string.Format("{0:#,##0}", Model.KargoList.Sum(x => x.Adet)))</th>
+                        <th class="KargoFirmToplam">@(string.Format("{0:#,##0}", Model.KargoList.Sum(x => x.Ciro)))</th>
+                        <th class="KargoFirmToplam">@(string.Format("{0:#,##0}",((Model.KargoList.Sum( x=>x.Ciro)) / Model.KargoList.Sum(x => x.Adet)) ))</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <br />
+            <h3 style="text-align:center;">Kargo Firması Aylık Bazda Rapor</h3>
+            <table  class="table table-striped table-bordered example" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Kargo</th>
+                        @foreach (var item in Model.KargofirmList.GroupBy(x => x.Ay))
+                        {
+                            <th>@item.Key</th>
+                        }
+                        <th>Genel Toplam</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.KargoList.GroupBy(x => new { x.Kargo }))
+                    {
+                        <tr>
+                            <td>@item.Key.Kargo</td>
+                            @foreach (var itemm in Model.KargofirmList.GroupBy(x => new { x.Ay }))
+                            {
+                                <td class="KargoFirmInfo">@itemm.Where(x => x.Kargo == item.Key.Kargo).Count()</td>
+
+                            }
+                            <th class="KargoFirmInfo">@Model.KargofirmList.Where(x => x.Kargo == item.Key.Kargo).Count()</th>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Genel Toplam</th>
+                        @foreach (var item in Model.KargofirmList.GroupBy(x => x.Ay))
+                        {
+                            <th class="KargoFirmToplam">@(string.Format("{0:#,##0}", item.Count()))</th>
+                        }
+                        <th class="KargoFirmToplam">@(string.Format("{0:#,##0}", Model.KargofirmList.Count()))</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section csss{
+    <link href="~/theme/datatables.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="~/theme/datatables.min.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.example').DataTable({
+                "lengthChange": false,
+                ordering: false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel'
+                ]
+            });
+        });
+    </script>
+}

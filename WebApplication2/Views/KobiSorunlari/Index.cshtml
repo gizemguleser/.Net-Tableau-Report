@@ -1,0 +1,90 @@
+﻿@model WebApplication2.Controllers.KobiSorunlariController.Sonuc
+<style>
+    .KobiSorunlariInfo {
+        text-align: right;
+    }
+
+    .KobiSorunlariToplam {
+        text-align: right;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <br />
+            <h3 style="text-align:center;">Kobi Sorunları</h3>
+
+            <table class="table table-striped table-bordered example" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Kobi</th>
+                        @foreach (var item in Model.KobiSorunList.GroupBy(x => x.durum))
+                        {
+                            <th>@item.Key</th>
+                        }
+                        <th>Genel Toplam</th>
+
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.KobiSorunList.GroupBy(x => new { x.tedarikci }))
+                    {
+                        <tr>
+                            <td>@item.Key.tedarikci</td>
+                            @foreach (var itemm in Model.KobiSorunList.GroupBy(x => new { x.durum }))
+                            {
+                                <td class="KobiSorunlariInfo">@itemm.Where(x => x.tedarikci == item.Key.tedarikci).Count()</td>
+
+                            }
+                            <th class="KobiSorunlariToplam">@item.Count()</th>
+                        </tr>
+
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Genel Toplam</th>
+                        @foreach (var item in Model.KobiSorunList.GroupBy(x => x.durum))
+                        {
+                            <th class="KobiSorunlariToplam">@(string.Format("{0:#,##0}", item.Count()))</th>
+                        }
+                        <th class="KobiSorunlariToplam">@(string.Format("{0:#,##0}", Model.KobiSorunList.Count()))</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section csss{
+    <link href="~/theme/datatables.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="~/theme/datatables.min.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.example').DataTable({
+                "lengthChange": true,
+                "order": [0, "asc"],
+                "pageLength": 25,
+                scrollX: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel'
+                ]
+            });
+        });
+    </script>
+}

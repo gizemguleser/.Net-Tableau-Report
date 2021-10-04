@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WebApplication2.Models.DomainTopAlisveris>
+@{
+    ViewBag.Title = "listele";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <br />
+            <h3 style="text-align:center;">Domain Top Alışveriş</h3>
+
+            <table id="example" class="table table-striped table-bordered" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>uye</th>
+                        <th>domain</th>
+                        <th>topSon3AyCiro</th>
+                        <th>topSon6AyCiro</th>
+                        <th>topCiro</th>
+                        <th>buay</th>
+                        <th>son1</th>
+                        <th>son2</th>
+                        <th>son3</th>
+                        <th>son4</th>
+                        <th>son5</th>
+                        <th>son6</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.uye</td>
+                            <td>@item.domain</td>
+                            <td class="text-right">@(item.son3 + item.son2 + item.son1 + item.buay)</td>
+                            <td class="text-right">@(item.son6 + item.son5 + item.son4 + item.son3 + item.son2 + item.son1 + item.buay)</td>
+                            <td class="text-right">@(item.topCiro)</td>
+                            <td class="text-right">@(item.buay)</td>
+                            <td class="text-right">@(item.son1)</td>
+                            <td class="text-right">@(item.son2)</td>
+                            <td class="text-right">@(item.son3)</td>
+                            <td class="text-right">@(item.son4)</td>
+                            <td class="text-right">@(item.son5)</td>
+                            <td class="text-right">@(item.son6)</td>
+
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+@section csss{
+    <link href="~/theme/datatables.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="~/theme/datatables.min.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "lengthChange": true,
+                //"order": [2, "desc"],
+                scrollX: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel'
+                ]
+
+            });
+        });
+    </script>
+}

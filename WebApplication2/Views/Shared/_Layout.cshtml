@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    @RenderSection("csss", required: false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+          
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Aylık", "Index", "Aylik")</li>
+                    <li>@Html.ActionLink("Faaliyet Rapor", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Domain Top Alışveriş ", "Index", "DomainTopAlisveris")</li>
+                    <li>@Html.ActionLink("Tedarikçi", "Index", "Tedarikci")</li>
+                    <li>@Html.ActionLink("Ürün", "Index", "Urun")</li>
+                    <li>@Html.ActionLink("Tedarikçi Kargo", "Index", "TedarikciKargo")</li>
+                    <li>@Html.ActionLink("KargoFirm", "Index", "KargoFirm")</li>
+                    <li>@Html.ActionLink("Sorunlu", "Index", "Sorunlu")</li>
+                    <li>@Html.ActionLink("Kobi Sorunları", "Index", "KobiSorunlari")</li>
+                    <li>@Html.ActionLink("Teslim", "Index", "Teslim")</li>
+                    <li>@Html.ActionLink("Süreler", "Index", "Sureler")</li>
+                    <li>@Html.ActionLink("Tedarikçi Top Alışveriş ", "Index", "TedarikciTopAlisveris")</li>
+                    <li>@Html.ActionLink("Fırsat Web Gelir Dağılım", "Index", "FirsatWebGelirDagilim")</li>
+                    @*<li>@Html.ActionLink("Sipariş Rapor Genel", "Index", "SiparisRaporgenel")</li>
+        <li>@Html.ActionLink("Kargo", "Index", "Kargo")</li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
